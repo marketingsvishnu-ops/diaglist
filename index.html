@@ -1,631 +1,1120 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CricketZone - Cricket Gaming Platform</title>
 
-  <title>CricketZone - Cricket Gaming & Sports Updates</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+}
+
+header {
+    background: #071d3b;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #19d66b;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #19d66b;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 430px;
+    padding: 80px 7%;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, rgba(4,22,46,.95), rgba(4,22,46,.65)),
+        url("https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
+    color: white;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.main-btn {
+    display: inline-block;
+    background: #19d66b;
+    color: #06182f;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* SECTIONS */
+
+section {
+    padding: 60px 7%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #667085;
+}
+
+/* CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+.card h3 {
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #667085;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.game-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    background: #071d3b;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #19d66b;
+    color: #06182f;
+}
+
+/* NEWS */
+
+.news {
+    background: #eef3f8;
+}
+
+.news-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.news-card h3 {
+    margin-bottom: 7px;
+}
+
+/* FOOTER */
+
+footer {
+    background: #071d3b;
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+
+/* MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    background: white;
+    width: 100%;
+    max-width: 650px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 15px;
+    padding: 30px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.modal-box h2 {
+    margin-bottom: 15px;
+}
+
+/* BATTING GAME */
+
+.scoreboard {
+    background: #071d3b;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.score {
+    font-size: 45px;
+    font-weight: bold;
+    color: #19d66b;
+}
+
+.ball-info {
+    margin-top: 10px;
+}
+
+.game-controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.big-hit {
+    background: #19d66b;
+    color: #071d3b;
+    border: none;
+    padding: 16px 35px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.big-hit:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* FANTASY */
+
+.player-list {
+    display: grid;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.player input {
+    width: 18px;
+    height: 18px;
+}
+
+.selected-count {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* QUIZ */
+
+.question {
+    font-size: 21px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.answers {
+    display: grid;
+    gap: 10px;
+}
+
+.answer {
+    border: 1px solid #ccd3dd;
+    background: white;
+    padding: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.answer:hover {
+    background: #eef8f2;
+}
+
+.answer.correct {
+    background: #baf5ce;
+}
+
+.answer.wrong {
+    background: #ffd0d0;
+}
+
+.result {
+    text-align: center;
+    padding: 20px;
+}
+
+.result h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 800px) {
+    .cards {
+        grid-template-columns: 1fr;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #08120d;
-      color: #fff;
-      line-height: 1.6;
-    }
-
-    /* HEADER */
     header {
-      background: #0d1f16;
-      border-bottom: 1px solid #1d3d2a;
-      padding: 16px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .logo {
-      font-size: 27px;
-      font-weight: bold;
-      color: #39d353;
+        flex-direction: column;
+        gap: 15px;
     }
 
     nav a {
-      color: #ddd;
-      text-decoration: none;
-      margin-left: 24px;
-      font-size: 15px;
-    }
-
-    nav a:hover {
-      color: #39d353;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 500px;
-      display: flex;
-      align-items: center;
-      padding: 80px 7%;
-
-      background:
-        linear-gradient(
-          90deg,
-          rgba(4, 15, 9, .95),
-          rgba(4, 15, 9, .55)
-        ),
-        url("https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1600&q=80")
-        center/cover;
-    }
-
-    .hero-content {
-      max-width: 700px;
+        margin: 0 8px;
     }
 
     .hero h1 {
-      font-size: 56px;
-      line-height: 1.1;
-      margin-bottom: 20px;
+        font-size: 38px;
     }
-
-    .hero h1 span {
-      color: #39d353;
-    }
-
-    .hero p {
-      color: #c7d1ca;
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #39d353;
-      color: #061008;
-      padding: 13px 25px;
-      border-radius: 7px;
-      text-decoration: none;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-
-    .btn.secondary {
-      background: transparent;
-      color: #fff;
-      border: 1px solid #39d353;
-    }
-
-    /* CONTAINER */
-    .container {
-      width: 86%;
-      max-width: 1250px;
-      margin: 60px auto;
-    }
-
-    .section-title {
-      font-size: 30px;
-      margin-bottom: 25px;
-    }
-
-    .section-title span {
-      color: #39d353;
-    }
-
-    /* LIVE MATCHES */
-    .matches {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 60px;
-    }
-
-    .match-card {
-      background: #0e2016;
-      border: 1px solid #1d3d2a;
-      border-radius: 13px;
-      padding: 22px;
-      text-align: center;
-    }
-
-    .live {
-      display: inline-block;
-      color: #ff4d4d;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .teams {
-      font-size: 20px;
-      font-weight: bold;
-      margin: 10px 0;
-    }
-
-    .score {
-      color: #39d353;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .match-info {
-      color: #929d96;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    /* GAME CARDS */
-    .games {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-      margin-bottom: 60px;
-    }
-
-    .game {
-      background: #102419;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid #1d3d2a;
-      transition: .3s;
-    }
-
-    .game:hover {
-      transform: translateY(-6px);
-      border-color: #39d353;
-    }
-
-    .game img {
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-    }
-
-    .game-content {
-      padding: 22px;
-    }
-
-    .game h3 {
-      margin-bottom: 10px;
-      font-size: 21px;
-    }
-
-    .game p {
-      color: #aeb9b1;
-      margin-bottom: 18px;
-    }
-
-    /* NEWS */
-    .news {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .news-card {
-      background: #0e2016;
-      border-radius: 13px;
-      overflow: hidden;
-      border: 1px solid #1d3d2a;
-    }
-
-    .news-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .news-content {
-      padding: 20px;
-    }
-
-    .category {
-      color: #39d353;
-      font-size: 12px;
-      text-transform: uppercase;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .news-content h3 {
-      margin: 8px 0;
-    }
-
-    .news-content p {
-      color: #aeb9b1;
-      font-size: 14px;
-    }
-
-    /* CTA */
-    .cta {
-      margin-top: 70px;
-      padding: 55px 30px;
-      text-align: center;
-      border-radius: 16px;
-      background: #102a1a;
-      border: 1px solid #245434;
-    }
-
-    .cta h2 {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-
-    .cta p {
-      color: #aeb9b1;
-      margin-bottom: 25px;
-    }
-
-    /* FOOTER */
-    footer {
-      margin-top: 70px;
-      background: #050b07;
-      padding: 35px 7%;
-      text-align: center;
-      color: #78847c;
-    }
-
-    footer a {
-      color: #9aa69e;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    footer a:hover {
-      color: #39d353;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .matches,
-      .games,
-      .news {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero h1 {
-        font-size: 44px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      nav a {
-        margin: 0 7px;
-      }
-
-      .matches,
-      .games,
-      .news {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 65px 7%;
-      }
-
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .btn {
-        margin-bottom: 10px;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">🏏 CricketZone</div>
+<header>
+    <div class="logo">Cricket<span>Zone</span></div>
 
     <nav>
-      <a href="#">Home</a>
-      <a href="#matches">Matches</a>
-      <a href="#games">Games</a>
-      <a href="#news">News</a>
-      <a href="#about">About</a>
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+        <a href="#news">News</a>
     </nav>
-  </header>
+</header>
 
 
-  <!-- HERO -->
-  <section class="hero">
+<!-- HERO -->
 
+<section class="hero" id="home">
     <div class="hero-content">
+        <h1>Cricket Gaming Starts Here</h1>
 
-      <h1>
-        Play Cricket.<br>
-        <span>Follow Every Match.</span>
-      </h1>
+        <p>
+            Play cricket games, build your fantasy team,
+            test your cricket knowledge and follow the latest updates.
+        </p>
 
-      <p>
-        Your new destination for cricket gaming, match updates,
-        scores, player news, tournaments and cricket entertainment.
-      </p>
+        <button class="main-btn" id="heroPlay">
+            Play Cricket
+        </button>
+    </div>
+</section>
 
-      <a href="#games" class="btn">Explore Games</a>
-      <a href="#matches" class="btn secondary">Live Matches</a>
 
+<!-- GAMES -->
+
+<section id="games">
+
+    <div class="section-title">
+        <h2>Cricket Games</h2>
+        <p>Choose a game and start playing.</p>
     </div>
 
-  </section>
+    <div class="cards">
 
+        <!-- BATTING -->
 
-  <main class="container">
+        <div class="card">
+            <div class="game-icon">🏏</div>
 
-    <!-- LIVE MATCHES -->
-    <h2 class="section-title">
-      🔴 Live <span>Matches</span>
-    </h2>
+            <h3>Cricket Challenge</h3>
 
-    <section class="matches" id="matches">
+            <p>
+                Face six balls and score as many runs as possible.
+            </p>
 
-      <div class="match-card">
-        <span class="live">● LIVE NOW</span>
-
-        <div class="teams">
-          India vs Australia
+            <button class="btn" id="playNowBtn">
+                Play Now
+            </button>
         </div>
 
-        <div class="score">
-          IND 187/4
+
+        <!-- FANTASY -->
+
+        <div class="card">
+            <div class="game-icon">⭐</div>
+
+            <h3>Fantasy Cricket</h3>
+
+            <p>
+                Select your players and create your fantasy cricket team.
+            </p>
+
+            <button class="btn" id="fantasyBtn">
+                Enter Game
+            </button>
         </div>
 
-        <div class="match-info">
-          18.2 Overs · 2nd Innings
-        </div>
-      </div>
 
+        <!-- QUIZ -->
 
-      <div class="match-card">
-        <span class="live">● LIVE NOW</span>
+        <div class="card">
+            <div class="game-icon">🧠</div>
 
-        <div class="teams">
-          England vs Pakistan
-        </div>
+            <h3>Cricket Quiz</h3>
 
-        <div class="score">
-          ENG 142/3
-        </div>
+            <p>
+                Answer cricket questions and test your knowledge.
+            </p>
 
-        <div class="match-info">
-          15.4 Overs · 2nd Innings
-        </div>
-      </div>
-
-
-      <div class="match-card">
-        <span class="live">● LIVE NOW</span>
-
-        <div class="teams">
-          South Africa vs New Zealand
+            <button class="btn" id="quizBtn">
+                Start Quiz
+            </button>
         </div>
 
-        <div class="score">
-          SA 165/6
-        </div>
+    </div>
+</section>
 
-        <div class="match-info">
-          20 Overs · Innings Complete
-        </div>
-      </div>
 
-    </section>
+<!-- NEWS -->
 
+<section class="news" id="news">
 
-    <!-- GAMES -->
-    <h2 class="section-title" id="games">
-      🎮 Cricket <span>Games</span>
-    </h2>
-
-    <section class="games">
-
-      <div class="game">
-
-        <img
-          src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=900&q=80"
-          alt="Cricket game"
-        >
-
-        <div class="game-content">
-
-          <h3>Cricket Challenge</h3>
-
-          <p>
-            Test your batting skills and compete against other
-            players in exciting cricket challenges.
-          </p>
-
-          <a href="#" class="btn">Play Now</a>
-
-        </div>
-
-      </div>
-
-
-      <div class="game">
-
-        <img
-          src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80"
-          alt="Cricket stadium"
-        >
-
-        <div class="game-content">
-
-          <h3>Fantasy Cricket</h3>
-
-          <p>
-            Create your own fantasy team and follow player
-            performances throughout the tournament.
-          </p>
-
-          <a href="#" class="btn">Enter Game</a>
-
-        </div>
-
-      </div>
-
-
-      <div class="game">
-
-        <img
-          src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=80"
-          alt="Cricket player"
-        >
-
-        <div class="game-content">
-
-          <h3>Cricket Quiz</h3>
-
-          <p>
-            Challenge your cricket knowledge with questions
-            covering players, teams, records and tournaments.
-          </p>
-
-          <a href="#" class="btn">Start Quiz</a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- NEWS -->
-    <h2 class="section-title" id="news">
-      📰 Latest <span>Cricket Updates</span>
-    </h2>
-
-    <section class="news">
-
-      <article class="news-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=900&q=80"
-          alt="Cricket match"
-        >
-
-        <div class="news-content">
-
-          <span class="category">Match Update</span>
-
-          <h3>
-            Big Match Delivers an Exciting Finish
-          </h3>
-
-          <p>
-            Catch the latest highlights, scores and key moments
-            from today's cricket action.
-          </p>
-
-        </div>
-
-      </article>
-
-
-      <article class="news-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80"
-          alt="Cricket stadium"
-        >
-
-        <div class="news-content">
-
-          <span class="category">Tournament</span>
-
-          <h3>
-            Tournament Action Continues
-          </h3>
-
-          <p>
-            Follow the latest fixtures, team performances and
-            tournament developments.
-          </p>
-
-        </div>
-
-      </article>
-
-
-      <article class="news-card">
-
-        <img
-          src="https://images.unsplash.com/photo-1593766788308-bd9b7a0a2c0c?auto=format&fit=crop&w=900&q=80"
-          alt="Cricket player"
-        >
-
-        <div class="news-content">
-
-          <span class="category">Player News</span>
-
-          <h3>
-            Players Prepare for the Next Challenge
-          </h3>
-
-          <p>
-            Get the latest player news, team announcements
-            and cricket stories.
-          </p>
-
-        </div>
-
-      </article>
-
-    </section>
-
-
-    <!-- CTA -->
-    <section class="cta">
-
-      <h2>Ready to Enter the Cricket World?</h2>
-
-      <p>
-        Follow matches, play cricket games and stay updated
-        with the latest cricket news.
-      </p>
-
-      <a href="#games" class="btn">
-        Explore CricketZone
-      </a>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer id="about">
-
-    <div>
-      <a href="#">Home</a>
-      <a href="#">Games</a>
-      <a href="#">Matches</a>
-      <a href="#">News</a>
-      <a href="#">Contact</a>
+    <div class="section-title">
+        <h2>Latest Cricket Updates</h2>
+        <p>Stay updated with cricket news.</p>
     </div>
 
-    <p style="margin-top:15px;">
-      © 2026 CricketZone. All rights reserved.
-    </p>
+    <div class="news-card">
+        <h3>🏏 International Cricket</h3>
+        <p>Follow match schedules, scores and cricket developments.</p>
+    </div>
 
-  </footer>
+    <div class="news-card">
+        <h3>🏆 Tournament Updates</h3>
+        <p>Get updates about major cricket tournaments and competitions.</p>
+    </div>
+
+    <div class="news-card">
+        <h3>⭐ Player Updates</h3>
+        <p>Read about player performances and important cricket moments.</p>
+    </div>
+
+</section>
+
+
+<footer>
+    <p>© 2026 CricketZone. All Rights Reserved.</p>
+</footer>
+
+
+<!-- ================================================= -->
+<!-- BATTING GAME MODAL -->
+<!-- ================================================= -->
+
+<div class="modal" id="battingModal">
+
+    <div class="modal-box">
+
+        <button class="close" data-close="battingModal">
+            ×
+        </button>
+
+        <h2>🏏 Cricket Challenge</h2>
+
+        <p>
+            You have 6 balls. Tap "Hit Ball" to score runs.
+        </p>
+
+        <div class="scoreboard">
+
+            <div class="score">
+                <span id="batScore">0</span>
+            </div>
+
+            <div class="ball-info">
+                Ball: <span id="ballNumber">0</span> / 6
+            </div>
+
+            <div id="batMessage">
+                Start your innings!
+            </div>
+
+        </div>
+
+        <div class="game-controls">
+
+            <button class="big-hit" id="hitBall">
+                🏏 Hit Ball
+            </button>
+
+        </div>
+
+        <div id="batResult"></div>
+
+    </div>
+</div>
+
+
+<!-- ================================================= -->
+<!-- FANTASY MODAL -->
+<!-- ================================================= -->
+
+<div class="modal" id="fantasyModal">
+
+    <div class="modal-box">
+
+        <button class="close" data-close="fantasyModal">
+            ×
+        </button>
+
+        <h2>⭐ Fantasy Cricket</h2>
+
+        <p>
+            Select exactly 5 players for your fantasy team.
+        </p>
+
+        <div class="selected-count">
+            Selected:
+            <span id="selectedCount">0</span> / 5
+        </div>
+
+        <div class="player-list">
+
+            <label class="player">
+                <span>Virat Kohli</span>
+                <input type="checkbox" value="Virat Kohli">
+            </label>
+
+            <label class="player">
+                <span>Rohit Sharma</span>
+                <input type="checkbox" value="Rohit Sharma">
+            </label>
+
+            <label class="player">
+                <span>Jasprit Bumrah</span>
+                <input type="checkbox" value="Jasprit Bumrah">
+            </label>
+
+            <label class="player">
+                <span>Joe Root</span>
+                <input type="checkbox" value="Joe Root">
+            </label>
+
+            <label class="player">
+                <span>Ben Stokes</span>
+                <input type="checkbox" value="Ben Stokes">
+            </label>
+
+            <label class="player">
+                <span>Babar Azam</span>
+                <input type="checkbox" value="Babar Azam">
+            </label>
+
+            <label class="player">
+                <span>Pat Cummins</span>
+                <input type="checkbox" value="Pat Cummins">
+            </label>
+
+            <label class="player">
+                <span>Kane Williamson</span>
+                <input type="checkbox" value="Kane Williamson">
+            </label>
+
+        </div>
+
+        <button class="btn" id="createTeam">
+            Create Team
+        </button>
+
+        <div id="teamResult"></div>
+
+    </div>
+</div>
+
+
+<!-- ================================================= -->
+<!-- QUIZ MODAL -->
+<!-- ================================================= -->
+
+<div class="modal" id="quizModal">
+
+    <div class="modal-box">
+
+        <button class="close" data-close="quizModal">
+            ×
+        </button>
+
+        <h2>🧠 Cricket Quiz</h2>
+
+        <div id="quizContent">
+
+            <p>
+                Question
+                <span id="questionNumber">1</span>
+                of 5
+            </p>
+
+            <div class="question" id="question">
+                Loading...
+            </div>
+
+            <div class="answers" id="answers"></div>
+
+        </div>
+
+        <div class="game-controls">
+
+            <button class="btn" id="nextQuestion">
+                Next Question
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+/* ==========================================
+   MODAL FUNCTIONS
+========================================== */
+
+function openModal(id) {
+    document.getElementById(id).classList.add("active");
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove("active");
+}
+
+
+/* CLOSE BUTTONS */
+
+document.querySelectorAll("[data-close]").forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        closeModal(this.dataset.close);
+
+    });
+
+});
+
+
+/* CLOSE WHEN CLICKING OUTSIDE */
+
+document.querySelectorAll(".modal").forEach(modal => {
+
+    modal.addEventListener("click", function(event) {
+
+        if (event.target === modal) {
+            modal.classList.remove("active");
+        }
+
+    });
+
+});
+
+
+/* ==========================================
+   PLAY NOW - BATTING GAME
+========================================== */
+
+const playNowBtn = document.getElementById("playNowBtn");
+const heroPlay = document.getElementById("heroPlay");
+
+let battingScore = 0;
+let battingBalls = 0;
+
+function startBattingGame() {
+
+    battingScore = 0;
+    battingBalls = 0;
+
+    document.getElementById("batScore").textContent = "0";
+    document.getElementById("ballNumber").textContent = "0";
+    document.getElementById("batMessage").textContent =
+        "Your innings has started!";
+
+    document.getElementById("batResult").innerHTML = "";
+
+    document.getElementById("hitBall").disabled = false;
+
+    openModal("battingModal");
+}
+
+playNowBtn.addEventListener("click", startBattingGame);
+
+heroPlay.addEventListener("click", startBattingGame);
+
+
+/* HIT BALL */
+
+document.getElementById("hitBall").addEventListener("click", function() {
+
+    if (battingBalls >= 6) {
+        return;
+    }
+
+    battingBalls++;
+
+    const possibleRuns = [0, 1, 2, 4, 6];
+
+    const runs =
+        possibleRuns[
+            Math.floor(Math.random() * possibleRuns.length)
+        ];
+
+    battingScore += runs;
+
+    document.getElementById("batScore").textContent =
+        battingScore;
+
+    document.getElementById("ballNumber").textContent =
+        battingBalls;
+
+    if (runs === 0) {
+
+        document.getElementById("batMessage").textContent =
+            "Dot ball!";
+
+    } else {
+
+        document.getElementById("batMessage").textContent =
+            "You scored " + runs + " run" +
+            (runs === 1 ? "" : "s") + "!";
+
+    }
+
+    if (battingBalls === 6) {
+
+        this.disabled = true;
+
+        document.getElementById("batResult").innerHTML = `
+            <div class="result">
+                <h2>Innings Complete!</h2>
+                <p>You scored <strong>${battingScore}</strong> runs from 6 balls.</p>
+                <br>
+                <button class="btn" onclick="startBattingGame()">
+                    Play Again
+                </button>
+            </div>
+        `;
+
+    }
+
+});
+
+
+/* ==========================================
+   FANTASY CRICKET
+========================================== */
+
+const fantasyBtn = document.getElementById("fantasyBtn");
+
+fantasyBtn.addEventListener("click", function() {
+
+    openModal("fantasyModal");
+
+});
+
+
+const playerCheckboxes =
+    document.querySelectorAll(".player input");
+
+playerCheckboxes.forEach(checkbox => {
+
+    checkbox.addEventListener("change", function() {
+
+        const selected =
+            document.querySelectorAll(
+                ".player input:checked"
+            );
+
+        if (selected.length > 5) {
+
+            this.checked = false;
+
+            alert("You can select a maximum of 5 players.");
+
+        }
+
+        updateSelectedCount();
+
+    });
+
+});
+
+
+function updateSelectedCount() {
+
+    const selected =
+        document.querySelectorAll(
+            ".player input:checked"
+        );
+
+    document.getElementById("selectedCount").textContent =
+        selected.length;
+
+}
+
+
+document.getElementById("createTeam")
+.addEventListener("click", function() {
+
+    const selected =
+        document.querySelectorAll(
+            ".player input:checked"
+        );
+
+    const result =
+        document.getElementById("teamResult");
+
+    if (selected.length !== 5) {
+
+        result.innerHTML = `
+            <p style="margin-top:20px;color:#c62828;">
+                Please select exactly 5 players.
+            </p>
+        `;
+
+        return;
+    }
+
+    let players = "";
+
+    selected.forEach(player => {
+
+        players += `
+            <li>${player.value}</li>
+        `;
+
+    });
+
+    result.innerHTML = `
+        <div style="margin-top:25px;">
+            <h3>Your Fantasy Team</h3>
+
+            <ul style="margin:15px 0 20px 20px;line-height:2;">
+                ${players}
+            </ul>
+
+            <p>
+                ✅ Team created successfully!
+            </p>
+        </div>
+    `;
+
+});
+
+
+/* ==========================================
+   CRICKET QUIZ
+========================================== */
+
+const quizQuestions = [
+
+    {
+        question: "How many players are there in a cricket team?",
+        answers: ["9", "10", "11", "12"],
+        correct: "11"
+    },
+
+    {
+        question: "How many runs is a boundary worth when the ball reaches the rope?",
+        answers: ["2", "3", "4", "6"],
+        correct: "4"
+    },
+
+    {
+        question: "How many runs are scored for a six?",
+        answers: ["4", "5", "6", "7"],
+        correct: "6"
+    },
+
+    {
+        question: "What is the maximum number of legal balls in an over?",
+        answers: ["4", "5", "6", "8"],
+        correct: "6"
+    },
+
+    {
+        question: "Which player is responsible for bowling the ball?",
+        answers: ["Bowler", "Keeper", "Umpire", "Batsman"],
+        correct: "Bowler"
+    }
+
+];
+
+let currentQuestion = 0;
+let quizScore = 0;
+let selectedAnswer = null;
+
+
+document.getElementById("quizBtn")
+.addEventListener("click", function() {
+
+    currentQuestion = 0;
+    quizScore = 0;
+    selectedAnswer = null;
+
+    document.getElementById("quizContent").style.display =
+        "block";
+
+    document.getElementById("nextQuestion").style.display =
+        "inline-block";
+
+    loadQuestion();
+
+    openModal("quizModal");
+
+});
+
+
+function loadQuestion() {
+
+    const question =
+        quizQuestions[currentQuestion];
+
+    selectedAnswer = null;
+
+    document.getElementById("questionNumber")
+        .textContent = currentQuestion + 1;
+
+    document.getElementById("question")
+        .textContent = question.question;
+
+    const answersContainer =
+        document.getElementById("answers");
+
+    answersContainer.innerHTML = "";
+
+    question.answers.forEach(answer => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer";
+        button.textContent = answer;
+
+        button.addEventListener("click", function() {
+
+            document.querySelectorAll(".answer")
+                .forEach(btn => {
+                    btn.style.pointerEvents = "none";
+                });
+
+            selectedAnswer = answer;
+
+            if (answer === question.correct) {
+
+                button.classList.add("correct");
+
+            } else {
+
+                button.classList.add("wrong");
+
+                document.querySelectorAll(".answer")
+                    .forEach(btn => {
+
+                        if (btn.textContent === question.correct) {
+                            btn.classList.add("correct");
+                        }
+
+                    });
+
+            }
+
+        });
+
+        answersContainer.appendChild(button);
+
+    });
+
+}
+
+
+document.getElementById("nextQuestion")
+.addEventListener("click", function() {
+
+    if (selectedAnswer === null) {
+
+        alert("Please select an answer first.");
+
+        return;
+
+    }
+
+    if (
+        selectedAnswer ===
+        quizQuestions[currentQuestion].correct
+    ) {
+
+        quizScore++;
+
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < quizQuestions.length) {
+
+        loadQuestion();
+
+    } else {
+
+        document.getElementById("quizContent").innerHTML = `
+            <div class="result">
+
+                <h2>Quiz Complete!</h2>
+
+                <p>
+                    Your score:
+                    <strong>${quizScore}</strong>
+                    / ${quizQuestions.length}
+                </p>
+
+                <br>
+
+                <button class="btn" onclick="restartQuiz()">
+                    Play Again
+                </button>
+
+            </div>
+        `;
+
+        this.style.display = "none";
+
+    }
+
+});
+
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+    quizScore = 0;
+    selectedAnswer = null;
+
+    document.getElementById("quizContent").innerHTML = `
+        <p>
+            Question
+            <span id="questionNumber">1</span>
+            of 5
+        </p>
+
+        <div class="question" id="question">
+            Loading...
+        </div>
+
+        <div class="answers" id="answers"></div>
+    `;
+
+    document.getElementById("nextQuestion").style.display =
+        "inline-block";
+
+    loadQuestion();
+
+}
+
+
+/* ==========================================
+   ESC KEY CLOSE MODAL
+========================================== */
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        document.querySelectorAll(".modal")
+            .forEach(modal => {
+                modal.classList.remove("active");
+            });
+
+    }
+
+});
+
+</script>
 
 </body>
 </html>
